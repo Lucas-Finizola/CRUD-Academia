@@ -16,6 +16,7 @@ export function StudentPlanChart({ students, darkMode = false }: Props) {
     const counts: Record<string, number> = {};
     
     students.forEach((s) => {
+      // s.plan vem como "MENSAL", "ANUAL", etc.
       counts[s.plan] = (counts[s.plan] || 0) + 1;
     });
 
@@ -50,7 +51,8 @@ export function StudentPlanChart({ students, darkMode = false }: Props) {
             paddingAngle={5}
             dataKey="value"
           >
-            {data.map((entry, index) => (
+            {/* CORREÇÃO 1: Usar _ no lugar de entry */}
+            {data.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke={darkMode ? "#1f2937" : "#fff"} />
             ))}
           </Pie>
@@ -63,7 +65,8 @@ export function StudentPlanChart({ students, darkMode = false }: Props) {
                 color: darkMode ? '#f3f4f6' : '#000'
             }} 
           />
-          <Legend wrapperStyle={{ color: legendColor }} itemStyle={{ color: legendColor }} />
+          {/* CORREÇÃO 2: Removido itemStyle */}
+          <Legend wrapperStyle={{ color: legendColor }} />
         </PieChart>
       </ResponsiveContainer>
     </div>
